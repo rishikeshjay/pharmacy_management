@@ -7,7 +7,7 @@ export default function Login({ onLogin }) {
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
-  // Demo credentials
+  // Hardcoded credentials for frontend demo (hidden from UI)
   const USERS = [
     { email: "admin@pharmacy.com", password: "admin123", role: "Admin" },
     { email: "staff@pharmacy.com", password: "staff123", role: "Staff" },
@@ -34,7 +34,6 @@ export default function Login({ onLogin }) {
   return (
     <div style={{
       minHeight: "100vh",
-      // Added medicine-related background image with a subtle frosted overlay for readability
       background: `linear-gradient(rgba(243, 244, 246, 0.85), rgba(243, 244, 246, 0.95)), url('https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=2069&auto=format&fit=crop')`,
       backgroundSize: "cover",
       backgroundPosition: "center",
@@ -52,7 +51,7 @@ export default function Login({ onLogin }) {
             display: "inline-flex", alignItems: "center", justifyContent: "center",
             width: 56, height: 56, background: "#111827", borderRadius: 14,
             marginBottom: 16,
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)", // Added slight shadow to pop against the new bg
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
           }}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
               <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z" stroke="#fff" strokeWidth="1.5"/>
@@ -73,7 +72,7 @@ export default function Login({ onLogin }) {
           borderRadius: 16,
           border: "0.5px solid #e5e7eb",
           padding: "2rem",
-          boxShadow: "0 10px 25px rgba(0,0,0,0.08)", // Slightly enhanced shadow
+          boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
         }}>
           <form onSubmit={handleLogin}>
             {/* Email */}
@@ -163,21 +162,6 @@ export default function Login({ onLogin }) {
               {loading ? "Signing in..." : "Sign in"}
             </button>
           </form>
-
-          {/* Demo credentials hint */}
-          <div style={{
-            marginTop: 20, padding: "12px 14px",
-            background: "#f9fafb", borderRadius: 8,
-            border: "0.5px solid #e5e7eb",
-          }}>
-            <p style={{ fontSize: 12, color: "#6b7280", margin: "0 0 6px", fontWeight: 500 }}>Demo credentials:</p>
-            <p style={{ fontSize: 12, color: "#374151", margin: "2px 0" }}>
-              <strong>Admin:</strong> admin@pharmacy.com / admin123
-            </p>
-            <p style={{ fontSize: 12, color: "#374151", margin: "2px 0" }}>
-              <strong>Staff:</strong> staff@pharmacy.com / staff123
-            </p>
-          </div>
         </div>
 
         <p style={{ textAlign: "center", fontSize: 12, color: "#6b7280", marginTop: 20, fontWeight: 500 }}>
