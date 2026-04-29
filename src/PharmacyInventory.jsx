@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 const CATEGORIES = [
   "Antibiotic", "Analgesic", "Antacid", "Antidiabetic",
@@ -110,8 +110,15 @@ const inputStyle = {
 };
 
 export default function PharmacyInventory({ user, onLogout }) {
-  const [items, setItems] = useState(INITIAL_ITEMS);
-  const [nextId, setNextId] = useState(8);
+  // 1. Check local storage first, fallback to INITIAL_ITEMS if empty
+  const [items, setItems] = useState(() => {
+    const savedData = localStorage.getItem("pharmacy_inventory");
+    if (savedData) {
+      return JSON.parse(savedData);
+    }
+    return INITIAL_ITEMS;
+  });
+
   const [search, setSearch] = useState("");
   const [filterCat, setFilterCat] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
@@ -119,6 +126,11 @@ export default function PharmacyInventory({ user, onLogout }) {
   const [editId, setEditId] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [formError, setFormError] = useState("");
+
+  // 2. Save items to localStorage every time the items array changes
+  useEffect(() => {
+    localStorage.setItem("pharmacy_inventory", JSON.stringify(items));
+  }, [items]);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
@@ -161,6 +173,7 @@ export default function PharmacyInventory({ user, onLogout }) {
       setFormError("Medicine name and expiry date are required.");
       return;
     }
+    
     const payload = {
       name: form.name.trim(),
       cat: form.cat,
@@ -170,12 +183,16 @@ export default function PharmacyInventory({ user, onLogout }) {
       exp: form.exp,
       reorder: parseInt(form.reorder) || 50,
     };
+
     if (editId !== null) {
+      // Editing existing item
       setItems(prev => prev.map(i => i.id === editId ? { ...i, ...payload } : i));
     } else {
-      setItems(prev => [...prev, { id: nextId, ...payload }]);
-      setNextId(n => n + 1);
+      // Adding new item - Calculate the next available ID dynamically
+      const newId = items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
+      setItems(prev => [...prev, { id: newId, ...payload }]);
     }
+    
     setModalOpen(false);
   }
 
