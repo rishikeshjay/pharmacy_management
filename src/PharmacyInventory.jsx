@@ -12,7 +12,7 @@ const INITIAL_ITEMS = [
   { id: 4, name: "Metformin 500mg",    cat: "Antidiabetic",     mfg: "Mankind",      stock: 210, price: 3.2,  exp: "2025-12-31", reorder: 100 },
   { id: 5, name: "Vitamin D3 1000IU",  cat: "Vitamin",          mfg: "Abbott",       stock: 18,  price: 12.0, exp: "2026-08-20", reorder: 50  },
   { id: 6, name: "Cetirizine 10mg",    cat: "Antihistamine",    mfg: "Cipla",        stock: 150, price: 1.8,  exp: "2027-04-15", reorder: 70  },
-  { id: 7, name: "Atenolol 50mg",      cat: "Antihypertensive", mfg: "Zydus",        stock: 90,  price: 4.5,  exp: "2026-06-30", reorder: 80  },
+  { id: 7, name: "Atenolol 50mg",      cat: "Antihypertensive", mfg: "Zydus",      stock: 90,  price: 4.5,  exp: "2026-06-30", reorder: 80  },
 ];
 
 function getStatus(item) {
